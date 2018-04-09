@@ -11,12 +11,12 @@ por pantalla.*/
 
     
     if($operador=='+')
-        echo 'suma: '.$op1+$op2.'<br>';
+        echo 'suma: '.($op1+$op2).'<br>';
     elseif ($operador=='-')
-        echo 'resta: '.$op1-$op2.'<br>';
+        echo 'resta: '.($op1-$op2).'<br>';
     elseif($operador=='/')
-        echo 'division: '.$op1/$op2.'<br>';
+        echo 'division: '.($op1/$op2).'<br>';
     else
-        echo 'multiplicacion: '.$op1*$op2.'<br>';
+        echo 'multiplicacion: '.($op1*$op2).'<br>';
         
 ?>
