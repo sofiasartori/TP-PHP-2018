@@ -48,9 +48,9 @@ switch($queHago){
 		break;
 		
 	case "DELETE":
-		$ch=curl_init();
-		curl_setopt($ch, CURLOPT_URL, "http://localhost/ejemploPostman/nexo.php");
-		curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "DELETE");
+		/*$ch=curl_init();
+		curl_setopt($ch, CURLOPT_URL, "http://localhost:8080/ejemploPostman/nexo.php");
+		curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "DELETE");*/
 		parse_str(file_get_contents('php://input'), $requestData);
 		var_dump($requestData);
 		/*if(!Alumno::Baja($legajo)){
@@ -67,6 +67,8 @@ switch($queHago){
 	case "PUT":
 		
 		parse_str(file_get_contents("php://input"), $put);
+		var_dump($put);
+		
 		$nombre = $put["nombre"];
 		$legajo = $put["legajo"];
 		/*$respuestaDeSubir = Archivo::Subir($nombre, $legajo);
