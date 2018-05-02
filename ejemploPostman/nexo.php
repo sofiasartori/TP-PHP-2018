@@ -48,12 +48,9 @@ switch($queHago){
 		break;
 		
 	case "DELETE":
-		/*$ch=curl_init();
-		curl_setopt($ch, CURLOPT_URL, "http://localhost:8080/ejemploPostman/nexo.php");
-		curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "DELETE");*/
 		parse_str(file_get_contents('php://input'), $requestData);
-		var_dump($requestData);
-		/*if(!Alumno::Baja($legajo)){
+		$legajo= $requestData["legajo"];
+		if(!Alumno::Baja($legajo)){
 			$mensaje = "Lamentablemente ocurrio un error y no se pudo escribir en el archivo.";
 		}
 		else{
@@ -62,16 +59,15 @@ switch($queHago){
 	
 		echo $mensaje;
 		
-		break;*/
+		break;
 		
 	case "PUT":
 		
 		parse_str(file_get_contents("php://input"), $put);
-		var_dump($put);
-		
+				
 		$nombre = $put["nombre"];
 		$legajo = $put["legajo"];
-		/*$respuestaDeSubir = Archivo::Subir($nombre, $legajo);
+		$respuestaDeSubir = Archivo::Subir($nombre, $legajo);
 
 		if(!$respuestaDeSubir["Exito"]){
 			echo "error " .$respuestaDeSubir["Mensaje"];
@@ -79,9 +75,6 @@ switch($queHago){
 		}
 		$archivo = $respuestaDeSubir["PathTemporal"];
 		echo "Bien " ;
-		
-		*/
-	
 		
 		$p = new Alumno($legajo, $nombre ,$archivo );
 

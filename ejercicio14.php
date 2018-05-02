@@ -17,7 +17,7 @@ function esPar ($numero){
 }
 
 function esImpar ($numero){
-    if(($numero%2)!=0){
+    if($numero%2!=0){
         return true;
     }
     else
