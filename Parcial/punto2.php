@@ -20,14 +20,14 @@ class VerificarUsuario{
         $encontrado=false;
         while(!feof($archivo)&&($encontrado==false)){
             $linea=fgets($archivo);
-            $datos=explode("-", $linea);
+            if(!empty($linea)){
+                $datos=explode("-", $linea);    
+            }            
             if(($datos[0]==$email)&&(rtrim($datos[4])==$clave)){
                 echo "Bievenido";
                 $encontrado=true;
             }
             else if(($datos[0]==$email)&&(rtrim($datos[4])!=$clave)){
-                echo "Esto: ".$datos[0]." es igual a esto ".$email."<br>";
-                echo "y esto ".$datos[4]." es igual a esto ".$clave."<br>";
                 echo "El usuario existe pero la contraseña es incorrecta";
                 $encontrado=true;
             }

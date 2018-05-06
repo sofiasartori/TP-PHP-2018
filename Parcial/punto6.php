@@ -28,7 +28,9 @@ class UsuarioModificacion{
         $encontrado=false;
         while(!feof($archivo)&&($encontrado==false)){
             $linea=fgets($archivo);
-            $datos=explode("-", $linea);     
+            if(!empty($linea)){
+                $datos=explode("-", $linea);         
+            }            
             $datosNuevos=array($email, $nombre, $perfil, $edad, $clave);
             if($datos[0]==$email){
                 $encontrado=true;                
@@ -43,26 +45,44 @@ class UsuarioModificacion{
         $archivo=fopen('C:/xampp/htdocs/usuarios.txt', "a+");
         while(!feof($archivo)){
             $linea=fgets($archivo);
-            $datos=explode("-", $linea);
+            if(!empty($linea)){
+                $datos=explode("-", $linea);    
+            }            
             $lineaNueva=implode("-", $datosNuevos);
             if($datos[0]==$datosNuevos[0]){
                 $encontrado=true;
                 file_put_contents('C:/xampp/htdocs/usuarios.txt', str_replace($linea, $lineaNueva."\r\n", file_get_contents('C:/xampp/htdocs/usuarios.txt')));
-                $archivo=fopen('C:/xampp/htdocs/comentario.txt', "a+");
-                fwrite($archivo, $datosNuevos[0].'-'.$comentario."\r\n");
-                $destino='C:/xampp/htdocs/ImagenesDeComentario/';
-                $tipoArchivo=pathinfo($nombreFoto, PATHINFO_EXTENSION);                
-                if(!file_exists($destino)){
-                    mkdir($destino);
-                    move_uploaded_file($foto, $destino.$comentario.'.'.$tipoArchivo);
-                }
-                else{
-                    move_uploaded_file($foto, $destino.$comentario.'.'.$tipoArchivo);
-                }
+                UsuarioModificacion::modificarComentarioFoto($datos[0], $comentario, $foto, $nombreFoto);
             }
         }  
         if($encontrado == false)
             echo "El usuario no existe";    
+    }
+
+    function modificarComentarioFoto($email, $comentario, $foto, $nombreFoto){
+        echo "esto en modificar comentario y foto";
+        $archivoComentario=fopen('C:/xampp/htdocs/comentario.txt', "a+");
+        while(!feof($archivoComentario)){
+            $lineaComentario=fgets($archivoComentario);
+            if(!empty($lineaComentario)){
+                $comentarios=explode("-", $lineaComentario);    
+            }            
+            $comentarioNuevo=$email.'-'.$comentario;
+            if($comentarios[0]==$email){
+                echo "linea comentario: ".$lineaComentario."\r\n";
+                echo "comentarioNuevo: ".$comentarioNuevo."\r\n";
+                file_put_contents('C:/xampp/htdocs/comentario.txt', str_replace($lineaComentario, $comentarioNuevo."\r\n", file_get_contents('C:/xampp/htdocs/comentario.txt')));
+            }
+        }               
+        $destino='C:/xampp/htdocs/ImagenesDeComentario/';
+        $tipoArchivo=pathinfo($nombreFoto, PATHINFO_EXTENSION);                
+        if(!file_exists($destino)){
+            mkdir($destino);
+            move_uploaded_file($foto, $destino.$comentario.'.'.$tipoArchivo);
+        }
+        else{
+            move_uploaded_file($foto, $destino.$comentario.'.'.$tipoArchivo);
+        }
     }
 
 }

@@ -19,7 +19,9 @@ class AltaComentarioConImagen{
         $encontrado=false;
         while(!feof($archivo)&&($encontrado==false)){
             $linea=fgets($archivo);
-            $datos=explode("-", $linea);
+            if(!empty($linea)){
+                $datos=explode("-", $linea);    
+            }            
             if($datos[0]==$usuario){
                 $encontrado=true;
                 AltaComentarioConImagen::imagenComentario($usuario, $comentario, $imagen, $nombreImagen);

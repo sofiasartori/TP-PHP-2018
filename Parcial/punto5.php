@@ -18,16 +18,14 @@ class TablaComentarios{
         
     }
 
-
-//ARMAR UNA FUNCION QUE SE LLAME DIBUJARtABLA 2 QUE RECIBA LOS COMENTARIOS
-
     function obtenerComentarios($usuario,$titulo){
         $comentarios=fopen('C:/xampp/htdocs/comentario.txt', "r");
         $comentariosArray=array();
         while(!feof($comentarios)){
             $lineac=fgets($comentarios);
-            $datosc=explode("-", $lineac);
-
+            if(!empty($lineac)){
+                $datosc=explode("-", $lineac);
+            }
             if(!isset($titulo) && !isset($usuario)){
                 array_push($comentariosArray, $datosc);            
             }else if(isset($titulo)){
@@ -52,7 +50,9 @@ class TablaComentarios{
         $usuarioGuardado;
         while(!feof($usuarios)){
             $linea=fgets($usuarios);
-            $datos=explode("-", $linea);   
+            if(!empty($linea)){
+                $datos=explode("-", $linea);   
+            }
             if($datos[0]==$usuario) 
                 return $datos;
         }
@@ -84,9 +84,7 @@ class TablaComentarios{
             }
             else 
                 $tabla=$tabla.'<td></td>';
-            //if(rtrim($comentariosArray[$i][1])==$nombreFoto){
-            $tabla=$tabla.'<td><img src="'.$nombreFoto.'" height=50; width=50;></img></td>';
-            //}                
+            $tabla=$tabla.'<td><img src="'.$nombreFoto.'" height=50; width=50;></img></td>';           
         }
         $tabla=$tabla.'</table>';
         echo $tabla;

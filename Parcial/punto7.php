@@ -29,7 +29,9 @@ class UsuarioModificacionValidado{
         $encontrado=false;
         while(!feof($archivo)&&($encontrado==false)){
             $linea=fgets($archivo);
-            $datos=explode("-", $linea);     
+            if(!empty($linea)){
+                $datos=explode("-", $linea);         
+            }            
             $datosNuevos=array($email, $nombre, $perfil, $edad, $clave);
             if(($datos[0]==$usuario)&&($datos[2]=="admin")){
                 $encontrado=true;                
@@ -50,7 +52,9 @@ class UsuarioModificacionValidado{
         $encontrado=false;
         while(!feof($archivo)&&$encontrado==false){
             $linea=fgets($archivo);
-            $datos=explode("-", $linea);
+            if(!empty($linea)){
+                $datos=explode("-", $linea);         
+            }
             $lineaNueva=implode("-", $datosNuevos);
             if($datos[0]==$datosNuevos[0]){
                 $encontrado=true;
@@ -67,7 +71,9 @@ class UsuarioModificacionValidado{
         $archivo=fopen('C:/xampp/htdocs/usuarios.txt', "a+");
         while(!feof($archivo)){
             $linea=fgets($archivo);
-            $datos=explode("-", $linea);
+            if(!empty($linea)){
+                $datos=explode("-", $linea);         
+            }
             $lineaNueva=implode("-", $datosNuevos);
             if($datos[0]==$usuario){
                 file_put_contents('C:/xampp/htdocs/usuarios.txt', str_replace($linea, $lineaNueva."\r\n", file_get_contents('C:/xampp/htdocs/usuarios.txt')));
@@ -92,7 +98,9 @@ class UsuarioModificacionValidado{
         $archivoComentario=fopen('C:/xampp/htdocs/comentario.txt', "a+");
         while(!feof($archivoComentario)){
             $lineaComentario=fgets($archivoComentario);
-            $comentarios=explode("-", $lineaComentario);
+            if(!empty($lineaComentario)){
+                $comentarios=explode("-", $lineaComentario);         
+            }
             $comentarioNuevo=$email.'-'.$comentario;
             if($comentarios[0]==$email){
                 echo "linea comentario: ".$lineaComentario."\r\n";

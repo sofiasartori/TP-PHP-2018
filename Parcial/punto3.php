@@ -20,7 +20,9 @@ class AltaComentario{
         $encontrado=false;
         while(!feof($archivo)&&($encontrado==false)){
             $linea=fgets($archivo);
-            $datos=explode("-", $linea);
+            if(!empty($linea)){
+                $datos=explode("-", $linea);    
+            }            
             if($datos[0]==$email){
                 $encontrado=true;
                 AltaComentario::escribirComentario($email, $comentario);
@@ -32,7 +34,7 @@ class AltaComentario{
 
     function escribirComentario($email, $comentario){
         $archivo=fopen('C:/xampp/htdocs/comentario.txt', "a+");
-        fwrite($archivo, $email.'-'.$comentario);
+        fwrite($archivo, $email.'-'.$comentario."\r\n");
     }
 }
 
